@@ -33,6 +33,7 @@
 </head>
 <body>
     <h2>INTRODUCCION Y SINTAXIS PHP</h2>
+    <p>Introduccion al lenguaje PHP, referente a la sintaxis desde cero hasta arrays pasando por programacion orientada a objetos.</p>
     <?php
         //Curso de PHP: https://www.youtube.com/watch?v=IOdmCo_7U6s&list=PLU8oAlHdN5BkinrODGXToK9oPAlnJxmW_&index=4&ab_channel=pildorasinformaticas
         //Para acceder al phpMyadmin se debe introducir user root y contraseña la misma que tengo cuando instale mysql 
