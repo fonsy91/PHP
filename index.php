@@ -270,8 +270,57 @@
 
         //con var_dump, puedes imprimir el array directamente 
         echo var_dump($alimentos);
-
     ?>
+    <br>
+    <br>
+    <h2>SQL Y BASES DE DATOS</h2>
+    <p>
+        En este apartado haremos consultas desde la web a la base de datos y todo lo relacionado con PHP y bases de datos.
+        Las consultasd de SQL se hacen con el comando select.
+    </p>
+
+    <?php
+    /* 
+    Conexion con base de datos: direccion de la BBDD, nombre de la BBDD, usuario de la BBDD y contraseña de la BBDD
+    La conecion a la base de datos se puede hacer en modo orientado a objetos (clase Mysql) o por procedimientos (funcion mysql_connect) 
+    */
+    require("conexionBD.php");
+    
+    //conexion con la base de datos 
+    $conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+    /* comprobar la conexión */
+    if (mysqli_connect_errno()) {
+        echo "Fallo en la conexion";
+    }
+    else{
+        echo "Se realizo la conexion con exito <br>";
+    }
+    //consulta 
+    /*
+    if ($result = $conexion->query("SELECT * FROM DATOSPERSONALES")) {
+        $row = $result->fetch_row();
+        //printf("Default database is %s.\n", $row[0]);
+        echo "La base de datos es: " . $row[0];
+        $result->close();
+    }
+    */
+    $resultado=$conexion->query("SELECT * FROM DATOSPERSONALES");
+    $fila=$resultado->fetch_row();
+    echo "El DNI es: " . $fila[0] . "<br>";
+    echo "El Nombre es: " . $fila[1] . "<br>";
+    echo "El Apellido es: " . $fila[2] . "<br>";
+    echo "La Edad es: " . $fila[3] . "<br>";
+
+    //Esto inserta una nueva eprsona a la base de datos pero cada vez que lo ejecutes insertara el mismo en este caso
+    //$conexion->query("INSERT INTO `datospersonales`(`NIF`, `NOMBRE`, `APELLIDO`, `EDAD`) VALUES ('53792134K','Pedro','Sanz',44)");
+
+    mysqli_close($conexion);
+    ?>
+
+    <p>Compartir datos de conexion a BBDD, importar tablas a BBDD Mysql y consultas SQL con filtros o criterios.</p>
+
+
+
 
 
 </body>
