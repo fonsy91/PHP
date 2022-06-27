@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
     <style>
+        body{
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
         .resaltar{
             color:#f00;
             font-weight: bold;
         }
+
         h1{
-		text-align:center;
+		    text-align:center;
         }
 
-        table{
-            background-color:#FFC;
-            padding:5px;
-            border:#666 5px solid;
-        }
-        
         .no_validado{
             font-size:18px;
             color:#F00;
@@ -28,6 +32,10 @@
             font-size:18px;
             color:#0C3;
             font-weight:bold;
+        }
+
+        .table{
+            width: 50%;
         }
     </style>
 </head>
@@ -94,25 +102,25 @@
         ha ese archivo.
     -->
     <form action="index.php" method="post" name="datos_usuario" id="datos_usuario">
-    <table width="15%" align="center">
-        <tr>
-        <td>Nombre:</td>
-        <td><label for="nombre_usuario"></label>
-        <input type="text" name="nombre_usuario" id="nombre_usuario"></td>
-        </tr>
-        <tr>
-        <td>Edad:</td>
-        <td><label for="edad_usuario"></label>
-        <input type="text" name="edad_usuario" id="edad_usuario"></td>
-        </tr>
-        <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        </tr>
-        <tr>
-        <td colspan="2" align="center"><input type="submit" name="enviando" id="enviando" value="Enviar"></td>
-        </tr>
-    </table>
+        <table width="15%" align="center">
+            <tr>
+            <td>Nombre:</td>
+            <td><label for="nombre_usuario"></label>
+            <input type="text" name="nombre_usuario" id="nombre_usuario"></td>
+            </tr>
+            <tr>
+            <td>Edad:</td>
+            <td><label for="edad_usuario"></label>
+            <input type="text" name="edad_usuario" id="edad_usuario"></td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td colspan="2" align="center"><input type="submit" name="enviando" id="enviando" value="Enviar"></td>
+            </tr>
+        </table>
     </form>
 
     <?php
@@ -132,48 +140,48 @@
     ?>
 
     <?php
-    /*
-    Constantes: como una variable pero se almacenara un valor que no podra cambiar durante la ejecucion del programa 
-    se declaran de la siguiente manera: define("NOMBRE_CONSTANTE",valor);
-    Solo pueden almacenar valores escalares.
-    Tambien existen constantes predefinidas de php en el siguiente enlace podras verlas: https://www.php.net/manual/es/language.constants.predefined.php
-    */
+        /*
+        Constantes: como una variable pero se almacenara un valor que no podra cambiar durante la ejecucion del programa 
+        se declaran de la siguiente manera: define("NOMBRE_CONSTANTE",valor);
+        Solo pueden almacenar valores escalares.
+        Tambien existen constantes predefinidas de php en el siguiente enlace podras verlas: https://www.php.net/manual/es/language.constants.predefined.php
+        */
 
-    define("AUTOR","Juan");
-    echo "El nombre de la constante es: ". AUTOR . "<br>";
-    echo "Algunas de las constantes predefindias son: <br>";
-    echo "La linea es: " . __LINE__ . "<br>";
-    echo "El archivo es: " . __FILE__ . "<br>";
+        define("AUTOR","Juan");
+        echo "El nombre de la constante es: ". AUTOR . "<br>";
+        echo "Algunas de las constantes predefindias son: <br>";
+        echo "La linea es: " . __LINE__ . "<br>";
+        echo "El archivo es: " . __FILE__ . "<br>";
 
-    /*
-    Casteo de tipos e variables 
-    */
-    $num1="5"; 
-    $resultado1=(int)$num1;
-    echo "El resultado sin hacer casteo es: " . $resultado1 . "<br>";
+        /*
+        Casteo de tipos e variables 
+        */
+        $num1="5"; 
+        $resultado1=(int)$num1;
+        echo "El resultado sin hacer casteo es: " . $resultado1 . "<br>";
 
-    /*
-    Condicionales un bucle if de toda la vida o la opcion corta: condicion ? Valor si verdadero : Valor si falso  
-    En el condicional de arriba tambien podriamos a ver hecho esto: 
-    echo $edad<18 ? "Eres menor" : "Eres mayor";
-    */
+        /*
+        Condicionales un bucle if de toda la vida o la opcion corta: condicion ? Valor si verdadero : Valor si falso  
+        En el condicional de arriba tambien podriamos a ver hecho esto: 
+        echo $edad<18 ? "Eres menor" : "Eres mayor";
+        */
 
-    /*
-    Funciones predefinidas: https://www.php.net/manual/es/indexes.functions.php
-    Funciones propias y parametros de funciones # function suma($num1,$num2){}
-    Funciones por valor: function ejemplo($param){}
-    Funcioens por referencia: function ejemplo(&$param){}
-    Al hacer un paso de parametro por referencia ya no se encapsula en la propia funcion lo hagas con esa variable cambiara 
-    el valor de la misma fuera de la funcion, en cambio cuando se pasa por valor solo ese cambio se realiza dentro de la funcion 
-    */
-    
-    function incrementa(&$valor1){
-        $valor1++;
-        return $valor1;
-    }
-    $numero=5;
-    echo incrementa($numero) . "<br>";
-    echo $numero . "<br>";
+        /*
+        Funciones predefinidas: https://www.php.net/manual/es/indexes.functions.php
+        Funciones propias y parametros de funciones # function suma($num1,$num2){}
+        Funciones por valor: function ejemplo($param){}
+        Funcioens por referencia: function ejemplo(&$param){}
+        Al hacer un paso de parametro por referencia ya no se encapsula en la propia funcion lo hagas con esa variable cambiara 
+        el valor de la misma fuera de la funcion, en cambio cuando se pasa por valor solo ese cambio se realiza dentro de la funcion 
+        */
+        
+        function incrementa(&$valor1){
+            $valor1++;
+            return $valor1;
+        }
+        $numero=5;
+        echo incrementa($numero) . "<br>";
+        echo $numero . "<br>";
     ?>
 
     <h2>PROGRAMACION ORIENTADA A OBJETOS POO</h2>
@@ -280,45 +288,82 @@
     </p>
 
     <?php
-    /* 
-    Conexion con base de datos: direccion de la BBDD, nombre de la BBDD, usuario de la BBDD y contraseña de la BBDD
-    La conecion a la base de datos se puede hacer en modo orientado a objetos (clase Mysql) o por procedimientos (funcion mysql_connect) 
-    */
-    require("conexionBD.php");
-    
-    //conexion con la base de datos 
-    $conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
-    /* comprobar la conexión */
-    if (mysqli_connect_errno()) {
-        echo "Fallo en la conexion";
-    }
-    else{
-        echo "Se realizo la conexion con exito <br>";
-    }
-    //consulta 
-    /*
-    if ($result = $conexion->query("SELECT * FROM DATOSPERSONALES")) {
-        $row = $result->fetch_row();
-        //printf("Default database is %s.\n", $row[0]);
-        echo "La base de datos es: " . $row[0];
-        $result->close();
-    }
-    */
-    $resultado=$conexion->query("SELECT * FROM DATOSPERSONALES");
-    $fila=$resultado->fetch_row();
-    echo "El DNI es: " . $fila[0] . "<br>";
-    echo "El Nombre es: " . $fila[1] . "<br>";
-    echo "El Apellido es: " . $fila[2] . "<br>";
-    echo "La Edad es: " . $fila[3] . "<br>";
+        /* 
+        Conexion con base de datos: direccion de la BBDD, nombre de la BBDD, usuario de la BBDD y contraseña de la BBDD
+        La conecion a la base de datos se puede hacer en modo orientado a objetos (clase Mysql) o por procedimientos (funcion mysql_connect) 
+        */
+        require("conexionBD.php");
+        
+        //conexion con la base de datos 
+        $conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+        /* comprobar la conexión */
+        if (mysqli_connect_errno()) {
+            echo "Fallo en la conexion";
+        }
+        else{
+            echo "Se realizo la conexion con exito <br>";
+        }
 
-    //Esto inserta una nueva eprsona a la base de datos pero cada vez que lo ejecutes insertara el mismo en este caso
-    //$conexion->query("INSERT INTO `datospersonales`(`NIF`, `NOMBRE`, `APELLIDO`, `EDAD`) VALUES ('53792134K','Pedro','Sanz',44)");
+        //ajustamos configuracion de idioma 
+        mysqli_set_charset($conexion,"utf8");
 
-    mysqli_close($conexion);
+        //consulta 
+        /*
+        if ($result = $conexion->query("SELECT * FROM DATOSPERSONALES")) {
+            $row = $result->fetch_row();
+            //printf("Default database is %s.\n", $row[0]);
+            echo "La base de datos es: " . $row[0];
+            $result->close();
+        }
+        */
+        $resultado=$conexion->query("SELECT * FROM DATOSPERSONALES");
+        $fila=$resultado->fetch_row();
+        echo "El DNI es: " . $fila[0] . "<br>";
+        echo "El Nombre es: " . $fila[1] . "<br>";
+        echo "El Apellido es: " . $fila[2] . "<br>";
+        echo "La Edad es: " . $fila[3] . "<br>";
+        echo "<br>";
+        //Esto inserta una nueva eprsona a la base de datos pero cada vez que lo ejecutes insertara el mismo en este caso
+        //$conexion->query("INSERT INTO `datospersonales`(`NIF`, `NOMBRE`, `APELLIDO`, `EDAD`) VALUES ('53792134K','Pedro','Sanz',44)");
+
+        //Importamos una nueva tabla y realizamos la consulta de otra manera diferente
+        $consulta="SELECT * FROM ARTÍCULOS WHERE PAISDEORIGEN='CHINA'";
+        $resultado2=mysqli_query($conexion,$consulta);
+
+        echo "
+        <table class='table table-hover table-responsive table-bordered'> 
+            <thead class='table-dark'>
+                <tr>
+                <th scope='col-md-3'>Seccion</th>
+                <th scope='col-md-3'>Nombre</th>
+                <th scope='col-md-3'>Fecha</th>
+                <th scope='col-md-3'>Pais</th>
+                <th scope='col-md-3'>Precio</th>
+                </tr>
+            </thead>
+        ";
+
+        while ($fila=mysqli_fetch_row($resultado2)){
+            echo "
+                <tbody>
+                    <tr>
+                        <td>$fila[0]</td>
+                        <td>$fila[1]</td>
+                        <td>$fila[2]</td>
+                        <td>$fila[3]</td>
+                        <td>$fila[4]</td>
+                    </tr>
+                </tbody>
+            ";
+        }
+        echo "</table>";
+                      
+        //Funcion mysqli_fecth_array() y consulta con caracteres comodin 
+       
+        
+        
+        mysqli_close($conexion);
     ?>
-
-    <p>Compartir datos de conexion a BBDD, importar tablas a BBDD Mysql y consultas SQL con filtros o criterios.</p>
-
 
 
 
