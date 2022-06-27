@@ -8,8 +8,8 @@
 
     <style>
         body{
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-left: 100px;
+            margin-right: 100px;
             margin-top: 40px;
             margin-bottom: 20px;
         }
@@ -38,6 +38,53 @@
             width: 50%;
         }
     </style>
+
+    <!--FUNCION DE BISQUEDA EN EL MISMO FICHERO-->
+    <?php
+        function ejecuta_consulta($labusqueda){
+            require("conexionBD.php");
+            //conexion con la base de datos 
+            $conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+            /* comprobar la conexión */
+            if (mysqli_connect_errno()) {
+                echo "Fallo en la conexion";
+            }
+            else{
+                echo "Se realizo la conexion con exito <br>";
+            }
+
+            $consulta3="SELECT * FROM ARTÍCULOS WHERE NOMBREARTICULO LIKE'%$labusqueda%'";
+            $resultado4=mysqli_query($conexion,$consulta3);
+                
+            echo "<br>";
+            echo "
+            <table class='table table-hover table-responsive table-bordered'> 
+                <thead class='table-dark'>
+                    <tr>
+                    <th scope='col-md-3'>Seccion</th>
+                    <th scope='col-md-3'>Nombre</th>
+                    <th scope='col-md-3'>Fecha</th>
+                    <th scope='col-md-3'>Pais</th>
+                    <th scope='col-md-3'>Precio</th>
+                    </tr>
+                </thead>
+            ";
+
+            while ($fila=mysqli_fetch_array($resultado4, MYSQLI_ASSOC)){
+                echo "<tbody><tr>";
+                    echo "<td>" . $fila['SECCION'] . "</td>";
+                    echo "<td>" . $fila['NOMBREARTICULO'] . "</td>";
+                    echo "<td>" . $fila['FECHA'] . "</td>";     
+                    echo "<td>" . $fila['PAISDEORIGEN'] . "</td>";     
+                    echo "<td>" . $fila['PRECIO'] . "</td>";         
+                echo "</tr></tbody>";    
+                
+            }
+            echo "</table>";
+            mysqli_close($conexion);
+        }
+    ?>
+
 </head>
 <body>
     <h2>INTRODUCCION Y SINTAXIS PHP</h2>
@@ -307,15 +354,6 @@
         //ajustamos configuracion de idioma 
         mysqli_set_charset($conexion,"utf8");
 
-        //consulta 
-        /*
-        if ($result = $conexion->query("SELECT * FROM DATOSPERSONALES")) {
-            $row = $result->fetch_row();
-            //printf("Default database is %s.\n", $row[0]);
-            echo "La base de datos es: " . $row[0];
-            $result->close();
-        }
-        */
         $resultado=$conexion->query("SELECT * FROM DATOSPERSONALES");
         $fila=$resultado->fetch_row();
         echo "El DNI es: " . $fila[0] . "<br>";
@@ -327,7 +365,7 @@
         //$conexion->query("INSERT INTO `datospersonales`(`NIF`, `NOMBRE`, `APELLIDO`, `EDAD`) VALUES ('53792134K','Pedro','Sanz',44)");
 
         //Importamos una nueva tabla y realizamos la consulta de otra manera diferente
-        $consulta="SELECT * FROM ARTÍCULOS WHERE PAISDEORIGEN='CHINA'";
+        $consulta="SELECT * FROM ARTÍCULOS";
         $resultado2=mysqli_query($conexion,$consulta);
 
         echo "
@@ -358,15 +396,90 @@
         }
         echo "</table>";
                       
-        //Funcion mysqli_fecth_array() y consulta con caracteres comodin 
-       
+        //Funcion mysqli_fecth_array() y consulta con caracteres comodin que son: % (sustituye una cadena de caracteres) - (un unico caracter)
+        //Ejemplo: %Caballero en la consulta indicamos que nos de todo lo que contenga algo + caballero usando la palabra LIKE  de sql.
+        //Ejemplo real: SELECT * FROM ARTÍCULOS WHERE NOMBREARTICULO LIKE '%CABALLERO';
+        //Para el caso del guion se puede usar en emdio de una palabra: CENI_ERO devolvera todas las palabras con ese patron 
+       //esa funcion se usa para array asociativos, para evitar los incides de los campos 
+       echo"<p>En este apartado hemos hecho una consulta a la base de datos mediante un mysqli_fecth_array(resultado3,MYSQLI_ASSOC) con esto podemos 
+        acceder a los valores de las columnas <br> mediante su nombre fila['SECCION'], mostrando unicamente lo que queremos en este caso solo 4 campos de cinco.
+       </p>";
+
+       $consulta2="SELECT * FROM ARTÍCULOS WHERE PAISDEORIGEN='ESPAÑA'";
+       $resultado3=mysqli_query($conexion,$consulta2);
         
+        echo "<br>";
+        echo "
+        <table class='table table-hover table-responsive table-bordered'> 
+            <thead class='table-dark'>
+                <tr>
+                <th scope='col-md-3'>Seccion</th>
+                <th scope='col-md-3'>Nombre</th>
+                <th scope='col-md-3'>Fecha</th>
+                <th scope='col-md-3'>Pais</th>
+                <th scope='col-md-3'>Precio</th>
+                </tr>
+            </thead>
+        ";
+
+        while ($fila=mysqli_fetch_array($resultado3, MYSQLI_ASSOC)){
+            echo "<tbody><tr>";
+                echo "<td>" . $fila['SECCION'] . "</td>";
+                echo "<td>" . $fila['NOMBREARTICULO'] . "</td>";
+                echo "<td>" . $fila['FECHA'] . "</td>";     
+                echo "<td>" . $fila['PAISDEORIGEN'] . "</td>";          
+            echo "</tr></tbody>";    
+            
+        }
+        echo "</table>";
+
+        //Creacion de formulario de busqueda y pagina de resultados 
         
+        echo "
+        <br>
+        <form action='busqueda.php' method='get'>
+            <p>Busqueda por nombre.</p>
+            <div class='form-group w-25'>
+                <label for='example2'> <input type='text' class='form-control' id='example2' name='buscar'></label>
+                <button type='submit' class='btn btn-primary'>Buscar</button>
+            </div>
+            <br>
+            
+        </form>
+        ";
+        
+        /*
+        //Se ha dividido el sistema de busqueda en dos paginas php ahora lo haremos en una sola pagina 
+        //Para ello hemos creado un funcion en el head y le pasamos como parametro lo que el usuario introduce a buscar 
+        //Al realizar esta prueba da un error de que la variable buscar no esta definida pero es un error en local en un servidor real no pasa y funcionaria perfectamente 
+        $mibusqueda=$_GET["buscar"];
+        //Con _SERVER indicamos a la pagina que tiene que llamar y con PHP_SEL indicamos que llame a la misma pagina 
+        $mipag=$_SERVER["PHP_SELF"];
+        if ($mibusqueda != NULL) {
+            ejecuta_consulta($mibusqueda);
+        }else{
+            echo "
+                <br>
+                <form action='" . $mipag ."' method='get'>
+                    <p>Busqueda por nombre.</p>
+                    <div class='form-group w-25'>
+                        <label for='example2'> <input type='text' class='form-control' id='example2' name='buscar'></label>
+                        <button type='submit' class='btn btn-primary'>Buscar</button>
+                    </div>
+                    <br>
+                    
+                </form>
+            ";
+        }
+        */
+
+
         mysqli_close($conexion);
     ?>
 
-
-
+   
+    
+   
 
 </body>
 </html>
