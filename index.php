@@ -101,8 +101,8 @@
         print "El nombre es: " . $nombre . " y tiene " . $edad . "<br>";
         //Tambien se puede imprimir con la palabra echo se usa mas porque es mas rapida y ahorra recursos 
         
-        include("funciones.php");
-        dameDatos();
+        //include("funciones.php");
+        //dameDatos();
         //Existe include y require la diferencia entre ambos es que con el include si existe un fallo en el archivo que se incluye 
         //el funcinamineto del programa sigue en cambio con require no el programa se para donde da el problema.
 
@@ -340,6 +340,7 @@
         La conecion a la base de datos se puede hacer en modo orientado a objetos (clase Mysql) o por procedimientos (funcion mysql_connect) 
         */
         require("conexionBD.php");
+        require("funciones.php");
         
         //conexion con la base de datos 
         $conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
@@ -473,11 +474,47 @@
         }
         */
 
+        //Insertar registros en la base de datos desde la aplicacion 
+        //$consulta3="INSERT INTO ARTÍCULOS(SECCION,NOMBREARTICULO,FECHA,PAISDEORIGEN,PRECIO) VALUES ('FERRETERÍA','Tornillos','06/05/2022','España','4,99')";
+        //$resultado4=mysqli_query($conexion,$consulta3);
+
+        echo "
+        <form name='form1' method='get' action='formulario.php'>
+            <fieldset>
+                <legend>Nuevo Artículo</legend>
+                <div class='form-group w-25'>
+                    <label for='seccion' class='form-label'>Seccion:</label>
+                    <input type='text' class='form-control' id='seccion' name='seccion'>
+                </div>
+                <div class='form-group w-25'>
+                    <label for='n_art' class='form-label'>Nombre del articulo:</label>
+                    <input type='text' class='form-control' id='n_art' name='n_art'>
+                </div>
+                <div class='form-group w-25'>
+                    <label for='fecha' class='form-label'>Fecha:</label>
+                    <input type='date' class='form-control' id='fecha' name='fecha'>
+                </div>
+                <div class='form-group w-25'>
+                    <label for='pais' class='form-label'>Pais:</label>
+                    <input type='text' class='form-control' id='pais' name='pais'>
+                </div>
+                <div class='form-group w-25'>
+                    <label for='precio' class='form-label'>Precio:</label>
+                    <input type='text' class='form-control' id='precio' name='precio'>
+                </div>
+                <br>
+                <button type='submit' class='btn btn-primary' name='enviar' id='enviar' value='enviar'>Enviar</button>
+                <button type='reset' class='btn btn-primary' name='borrar' id='borrar' value='borrar'>Borrar</button>
+            </fieldset>
+        </form>       
+        ";
+
+        //VAMOS POR EL VIDEO 44
 
         mysqli_close($conexion);
     ?>
-
    
+    
     
    
 
